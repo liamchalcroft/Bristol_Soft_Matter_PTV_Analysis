@@ -139,6 +139,12 @@ def process_pickle(file_path, general_directory, microns_per_pixel, timestep, fr
     sys.stdout.write("\r Calculating X Velocity for particle: {:.2%}".format(1/1))
 
     final_df['hyp_vel'] = np.hypot(final_df.x_velocity, final_df.y_velocity)
+    
+#     bin_width = 50
+        
+#     df['binx'] = (df['x']/bin_width).apply(np.floor)*bin_width
+
+#     df['biny'] = (df['y']/bin_width).apply(np.floor)*bin_width
 
     df = final_df.copy()
     df.y_velocity = -df.y_velocity
@@ -169,7 +175,7 @@ def process_pickle(file_path, general_directory, microns_per_pixel, timestep, fr
 
     df['bin'] = list(map(map_bin, df['x']))
 
-    df.to_excel(general_directory + "/data.xlsx")
+    df.to_csv(general_directory + "/data.csv")
     f = open(general_directory + '/particle_data.txt', 'w')
     f.write("Average particle velocity - abs displacement method: {}".format(df.velocity.mean()))
     f.write("\n")
